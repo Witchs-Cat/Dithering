@@ -1,0 +1,16 @@
+C:\HOME\junk\Dithering\Interaction\bin\Debug\netcoreapp3.1\Interaction.exe
+C:\HOME\junk\Dithering\Interaction\bin\Debug\netcoreapp3.1\Interaction.deps.json
+C:\HOME\junk\Dithering\Interaction\bin\Debug\netcoreapp3.1\Interaction.runtimeconfig.json
+C:\HOME\junk\Dithering\Interaction\bin\Debug\netcoreapp3.1\Interaction.runtimeconfig.dev.json
+C:\HOME\junk\Dithering\Interaction\bin\Debug\netcoreapp3.1\Interaction.dll
+C:\HOME\junk\Dithering\Interaction\bin\Debug\netcoreapp3.1\Interaction.pdb
+C:\HOME\junk\Dithering\Interaction\obj\Debug\netcoreapp3.1\Interaction.csproj.AssemblyReference.cache
+C:\HOME\junk\Dithering\Interaction\obj\Debug\netcoreapp3.1\Interaction.MainForm.resources
+C:\HOME\junk\Dithering\Interaction\obj\Debug\netcoreapp3.1\Interaction.csproj.GenerateResource.cache
+C:\HOME\junk\Dithering\Interaction\obj\Debug\netcoreapp3.1\Interaction.GeneratedMSBuildEditorConfig.editorconfig
+C:\HOME\junk\Dithering\Interaction\obj\Debug\netcoreapp3.1\Interaction.AssemblyInfoInputs.cache
+C:\HOME\junk\Dithering\Interaction\obj\Debug\netcoreapp3.1\Interaction.AssemblyInfo.cs
+C:\HOME\junk\Dithering\Interaction\obj\Debug\netcoreapp3.1\Interaction.csproj.CoreCompileInputs.cache
+C:\HOME\junk\Dithering\Interaction\obj\Debug\netcoreapp3.1\Interaction.dll
+C:\HOME\junk\Dithering\Interaction\obj\Debug\netcoreapp3.1\Interaction.pdb
+C:\HOME\junk\Dithering\Interaction\obj\Debug\netcoreapp3.1\Interaction.genruntimeconfig.cache

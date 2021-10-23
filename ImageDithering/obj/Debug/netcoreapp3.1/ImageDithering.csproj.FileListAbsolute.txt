@@ -1,0 +1,5 @@
+C:\HOME\junk\Dithering\ImageDithering\obj\Debug\netcoreapp3.1\ImageDithering.csproj.AssemblyReference.cache
+C:\HOME\junk\Dithering\ImageDithering\obj\Debug\netcoreapp3.1\ImageDithering.GeneratedMSBuildEditorConfig.editorconfig
+C:\HOME\junk\Dithering\ImageDithering\obj\Debug\netcoreapp3.1\ImageDithering.AssemblyInfoInputs.cache
+C:\HOME\junk\Dithering\ImageDithering\obj\Debug\netcoreapp3.1\ImageDithering.AssemblyInfo.cs
+C:\HOME\junk\Dithering\ImageDithering\obj\Debug\netcoreapp3.1\ImageDithering.csproj.CoreCompileInputs.cache
