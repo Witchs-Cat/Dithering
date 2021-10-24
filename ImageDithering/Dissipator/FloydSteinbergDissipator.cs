@@ -51,7 +51,7 @@ namespace ImageDithering
             return _errorMatrix[y][x];
         }
 
-        public void Initialize(int width, int height)
+        public void CreateEmptyMap(int width, int height)
         {
             _errorMatrix = new PixelError[height][];
             for (int _ = 0; _ < height; _++)

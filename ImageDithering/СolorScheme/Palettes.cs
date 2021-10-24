@@ -16,7 +16,7 @@ namespace ImageDithering
 
             new Palette("Monochrome",new Color[]{
                     Color.FromArgb(255,  Color.FromArgb(255, 255,255)),
-                    Color.FromArgb(255,  Color.FromArgb(0,0, 0)),}),
+                    Color.FromArgb(255,  Color.FromArgb(0, 0, 0)),}),
 
             new Palette("Gray 4", new Color[]{
                     Color.FromArgb(255,  Color.FromArgb(255, 255,255)),
@@ -194,6 +194,24 @@ namespace ImageDithering
                     Color.FromArgb(255,  Color.FromArgb(0x602e9a)),
                     Color.FromArgb(255,  Color.FromArgb(0x6c4ac7)),
                     Color.FromArgb(255,  Color.FromArgb(0x8e8bea)),
+                }),
+                new Palette("RUBLLE4", new Color[]
+                {
+                    Color.FromArgb(255,  Color.FromArgb(0xd6e2b3)),
+                    Color.FromArgb(255,  Color.FromArgb(0xd1b250)),
+                    Color.FromArgb(255,  Color.FromArgb(0x362d43)),
+                    Color.FromArgb(255,  Color.FromArgb(0x488880)),
+                }),
+                new Palette("WEEN8", new Color[]
+                {
+                    Color.FromArgb(255,  Color.FromArgb(0x000000)),
+                    Color.FromArgb(255,  Color.FromArgb(0x150050)),
+                    Color.FromArgb(255,  Color.FromArgb(0x610094)),
+                    Color.FromArgb(255,  Color.FromArgb(0x872717)),
+                    Color.FromArgb(255,  Color.FromArgb(0x3f0071)),
+                    Color.FromArgb(255,  Color.FromArgb(0xad460b)),
+                    Color.FromArgb(255,  Color.FromArgb(0xe68014)),
+                    Color.FromArgb(255,  Color.FromArgb(0xfff75a)),//fff75a
                 })
         };
 

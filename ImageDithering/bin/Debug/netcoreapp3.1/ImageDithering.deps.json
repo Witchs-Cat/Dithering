@@ -6,12 +6,12 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v3.1": {
-      "Interaction/1.0.0": {
+      "ImageDithering/1.0.0": {
         "dependencies": {
-          "ImageDithering": "1.0.0"
+          "System.Drawing.Common": "5.0.2"
         },
         "runtime": {
-          "Interaction.dll": {}
+          "ImageDithering.dll": {}
         }
       },
       "Microsoft.NETCore.Platforms/5.0.0": {},
@@ -58,19 +58,11 @@
             "fileVersion": "5.0.421.11614"
           }
         }
-      },
-      "ImageDithering/1.0.0": {
-        "dependencies": {
-          "System.Drawing.Common": "5.0.2"
-        },
-        "runtime": {
-          "ImageDithering.dll": {}
-        }
       }
     }
   },
   "libraries": {
-    "Interaction/1.0.0": {
+    "ImageDithering/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
@@ -95,11 +87,6 @@
       "sha512": "sha512-rvr/M1WPf24ljpvvrVd74+NdjRUJu1bBkspkZcnzSZnmAUQWSvanlQ0k/hVHk+cHufZbZfu7vOh/vYc0q5Uu/A==",
       "path": "system.drawing.common/5.0.2",
       "hashPath": "system.drawing.common.5.0.2.nupkg.sha512"
-    },
-    "ImageDithering/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
     }
   }
 }
