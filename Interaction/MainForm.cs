@@ -1,4 +1,5 @@
 ﻿using ImageDithering;
+using ImageDithering.Dissipator;
 using System;
 using System.Drawing;
 using System.Drawing.Imaging;
@@ -13,12 +14,17 @@ namespace Interaction
     public partial class MainForm : Form
     {
         private CancellationTokenSource _tokenSource;
+        private Type[] _dissipators = new Type[] { typeof(FloydSteinbergDissipator), typeof(PrimitiveDissipator), typeof(SierraLiteDissipator) };
         public MainForm()
         {
             _tokenSource = new CancellationTokenSource();
             InitializeComponent();
             PalettesComboBox.Items.AddRange(Palettes.GetNames().ToArray());
+            PalettesComboBox.SelectedIndex = 0;
             PalettesComboBox.Update();
+            AlgorithmComboBox.Items.AddRange(_dissipators.Select(x => x.Name).ToArray());
+            AlgorithmComboBox.SelectedIndex = 0;
+            AlgorithmComboBox.Update();
         }
 
         private void LoadPicture_Click(object sender, EventArgs e)
@@ -75,12 +81,12 @@ namespace Interaction
             Bitmap originalImage = new Bitmap(OriginalPictureBox.Image);
             Palette palette = new Palettes().ElementAt((paletteIndex < 0)? 0: paletteIndex);
             float power = PowerTrackBar.Value / 100.0f;
-
+            IErrorDissipator dissipator = DefineDissipator();
 
             ImageDither dither = new ImageDither(originalImage);
             dither.RepainProgressEvent += RepainProgres;
             dither.RepainCompletedEvent += OnRepainCompleted;
-            dither.RenderImageAsync(palette, power, cancellation: _tokenSource.Token)
+            dither.RenderImageAsync(palette, power, dissipator, cancellation: _tokenSource.Token)
                 .ContinueWith(task =>
                     {
                         if (task.Status != TaskStatus.RanToCompletion)
@@ -107,6 +113,20 @@ namespace Interaction
 
             using var stream = SaveDitheredPictureDialog.OpenFile();
             DitheredPictureBox.Image.Save(stream, ImageFormat.Jpeg);
+        }
+
+        public IErrorDissipator DefineDissipator()
+        {
+            int selectedIndex = AlgorithmComboBox.SelectedIndex;
+            Type dissipatorType = _dissipators.ElementAt((selectedIndex < 0) ? 0 : selectedIndex);
+
+            if (dissipatorType == typeof(FloydSteinbergDissipator))
+                return new FloydSteinbergDissipator();
+            if (dissipatorType == typeof(PrimitiveDissipator))
+                return new PrimitiveDissipator();
+            if (dissipatorType == typeof(SierraLiteDissipator))
+                return new SierraLiteDissipator();
+            return new SierraLiteDissipator();
         }
 
         public string GenerateRandomName()

@@ -21,3 +21,4 @@ C:\HOME\junk\Dithering\Interaction\bin\Debug\netcoreapp3.1\runtimes\unix\lib\net
 C:\HOME\junk\Dithering\Interaction\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.0\System.Drawing.Common.dll
 C:\HOME\junk\Dithering\Interaction\bin\Debug\netcoreapp3.1\ImageDithering.dll
 C:\HOME\junk\Dithering\Interaction\bin\Debug\netcoreapp3.1\ImageDithering.pdb
+C:\HOME\junk\Dithering\Interaction\obj\Debug\netcoreapp3.1\Interaction.csproj.CopyComplete

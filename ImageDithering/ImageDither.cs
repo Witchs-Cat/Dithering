@@ -36,25 +36,27 @@ namespace ImageDithering
                 {
                     if (cancellation.IsCancellationRequested)
                     {
-                        throw new TaskCanceledException($"The {nameof(RenderImage)} has been canceled");
+                        throw new OperationCanceledException($"The {nameof(RenderImage)} has been canceled");
                     }
 
-                    Color originalPixelColor = _originalImage.GetPixel(x, y);
-                    PixelError pixelError = dissipator.GetPixelError(x, y);
+                    Color originalColor = _originalImage.GetPixel(x, y);
+                    PixelError error = dissipator.GetPixelError(x, y);
                     Color sumColor = Color.FromArgb(
-                        ClipByte(originalPixelColor.R + (int)(pixelError.R * power)),
-                        ClipByte(originalPixelColor.G + (int)(pixelError.G * power)),
-                        ClipByte(originalPixelColor.B + (int)(pixelError.B * power)));
+                        255,
+                        ClipByte(originalColor.R + (int)(error.R * power)),
+                        ClipByte(originalColor.G + (int)(error.G * power)),
+                        ClipByte(originalColor.B + (int)(error.B * power)));
 
-                    Color newPixelColor = pallete.FindClosestColor(sumColor);
-                    PixelError newPixelError = new PixelError(
-                       originalPixelColor.R - newPixelColor.R,
-                       originalPixelColor.G - newPixelColor.G,
-                       originalPixelColor.B - newPixelColor.B);
+                    Color newColor = pallete.FindClosestColor(sumColor);
+                    PixelError newError = new PixelError(
+                       sumColor.R - newColor.R,
+                       sumColor.G - newColor.G,
+                       sumColor.B - newColor.B);
 
-                    dissipator.DissipateError(x, y, newPixelError);
-                    ditheredBitmap.SetPixel(x, y, newPixelColor);
+                    dissipator.DissipateError(x, y, newError);
+                    ditheredBitmap.SetPixel(x, y, newColor);
                 }
+                dissipator.ShiftLines();
                 Task.Run(() => RepainProgressEvent?.Invoke(Math.BigMul(xMax - 1, y), Math.BigMul(xMax, yMax)));
             }
             Task.Run(() => RepainCompletedEvent?.Invoke(_originalImage, ditheredBitmap));

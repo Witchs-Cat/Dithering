@@ -31,7 +31,7 @@ namespace ImageDithering
             int distR = color1.R - color2.R;
             int distG = color1.G - color2.G;
             int distB = color1.B - color2.B;
-            return Math.Abs(distR) + Math.Abs(distG) + Math.Abs(distB);
+            return distR*distR + distG*distG + distB*distB;
         }
 
     }

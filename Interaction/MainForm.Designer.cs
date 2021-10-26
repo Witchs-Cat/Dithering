@@ -44,6 +44,8 @@ namespace Interaction
             this.DitheredPictureBox = new System.Windows.Forms.PictureBox();
             this.OpenOriginalPictureDialog = new System.Windows.Forms.OpenFileDialog();
             this.SaveDitheredPictureDialog = new System.Windows.Forms.SaveFileDialog();
+            this.AlgorithmComboBox = new System.Windows.Forms.ComboBox();
+            this.AlgorithmLabel = new System.Windows.Forms.Label();
             this.ButtonsPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PowerTrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PicturesContainer)).BeginInit();
@@ -58,6 +60,8 @@ namespace Interaction
             // 
             this.ButtonsPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.ButtonsPanel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.ButtonsPanel.Controls.Add(this.AlgorithmComboBox);
+            this.ButtonsPanel.Controls.Add(this.AlgorithmLabel);
             this.ButtonsPanel.Controls.Add(this.TimeSpanLabel);
             this.ButtonsPanel.Controls.Add(this.PalettesComboBox);
             this.ButtonsPanel.Controls.Add(this.DitheringProgressBar);
@@ -108,7 +112,7 @@ namespace Interaction
             // PowerLabel
             // 
             this.PowerLabel.AutoSize = true;
-            this.PowerLabel.Location = new System.Drawing.Point(274, 9);
+            this.PowerLabel.Location = new System.Drawing.Point(420, 9);
             this.PowerLabel.Name = "PowerLabel";
             this.PowerLabel.Size = new System.Drawing.Size(67, 15);
             this.PowerLabel.TabIndex = 16;
@@ -138,14 +142,14 @@ namespace Interaction
             // 
             // PowerTrackBar
             // 
-            this.PowerTrackBar.Location = new System.Drawing.Point(269, 28);
-            this.PowerTrackBar.Maximum = 1000;
+            this.PowerTrackBar.Location = new System.Drawing.Point(420, 28);
+            this.PowerTrackBar.Maximum = 100;
             this.PowerTrackBar.Name = "PowerTrackBar";
-            this.PowerTrackBar.Size = new System.Drawing.Size(83, 45);
+            this.PowerTrackBar.Size = new System.Drawing.Size(287, 45);
             this.PowerTrackBar.SmallChange = 10;
-            this.PowerTrackBar.TabIndex = 13;
-            this.PowerTrackBar.TickFrequency = 100;
-            this.PowerTrackBar.Value = 100;
+            this.PowerTrackBar.TabIndex = 10;
+            this.PowerTrackBar.TickFrequency = 10;
+            this.PowerTrackBar.Value = 90;
             // 
             // DitherPicture
             // 
@@ -229,6 +233,26 @@ namespace Interaction
             // 
             this.OpenOriginalPictureDialog.FileName = "openFileDialog1";
             // 
+            // AlgorithmComboBox
+            // 
+            this.AlgorithmComboBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.AlgorithmComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.AlgorithmComboBox.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.AlgorithmComboBox.FormattingEnabled = true;
+            this.AlgorithmComboBox.Location = new System.Drawing.Point(284, 28);
+            this.AlgorithmComboBox.Name = "AlgorithmComboBox";
+            this.AlgorithmComboBox.Size = new System.Drawing.Size(117, 23);
+            this.AlgorithmComboBox.TabIndex = 19;
+            // 
+            // AlgorithmLabel
+            // 
+            this.AlgorithmLabel.AutoSize = true;
+            this.AlgorithmLabel.Location = new System.Drawing.Point(284, 9);
+            this.AlgorithmLabel.Name = "AlgorithmLabel";
+            this.AlgorithmLabel.Size = new System.Drawing.Size(62, 15);
+            this.AlgorithmLabel.TabIndex = 18;
+            this.AlgorithmLabel.Text = "Алгоритм";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -271,6 +295,8 @@ namespace Interaction
         private System.Windows.Forms.SaveFileDialog SaveDitheredPictureDialog;
         private System.Windows.Forms.ComboBox PalettesComboBox;
         private System.Windows.Forms.Label TimeSpanLabel;
+        private System.Windows.Forms.ComboBox AlgorithmComboBox;
+        private System.Windows.Forms.Label AlgorithmLabel;
     }
 }
 
