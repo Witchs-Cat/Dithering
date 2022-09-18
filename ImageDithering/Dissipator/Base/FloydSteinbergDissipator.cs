@@ -8,7 +8,8 @@ namespace ImageDithering
     {
         private PixelError[] _currentLine;
         private PixelError[] _nextLine;
-        public void DissipateError(int x, int y, PixelError pixelError)
+
+        public void DissipateError(int x, int y, in PixelError pixelError)
         {
             // 0
             _currentLine[x + 2].R += pixelError.R * 7 / 16;
@@ -28,8 +29,8 @@ namespace ImageDithering
             _nextLine[x + 2].B += pixelError.B * 1 / 16;
         }
 
-        public PixelError GetPixelError(int x, int y)
-        =>_currentLine[x + 1];
+        public void GetPixelError(int x, int y, out PixelError error)
+            => error = _currentLine[x + 1];
 
         public void CreateEmptyMap(int width, int height)
         {

@@ -15,6 +15,7 @@ namespace Interaction
     {
         private CancellationTokenSource _tokenSource;
         private Type[] _dissipators = new Type[] { typeof(FloydSteinbergDissipator), typeof(PrimitiveDissipator), typeof(SierraLiteDissipator) };
+
         public MainForm()
         {
             _tokenSource = new CancellationTokenSource();
@@ -29,6 +30,7 @@ namespace Interaction
 
         private void LoadPicture_Click(object sender, EventArgs e)
         {
+            OriginalPictureBox.Image?.Dispose();
             if (OpenOriginalPictureDialog.ShowDialog() != DialogResult.OK)
                 return;
             using Stream fileStream = OpenOriginalPictureDialog.OpenFile();
@@ -46,11 +48,13 @@ namespace Interaction
                 DitheringProgressBar.Update();
             }));
         }
+
         private void OnRepainCompleted(Bitmap beforeImage, Bitmap afterImage)
         {
 
             DitheredPictureBox.Invoke((Action)(() =>
             {
+                DitheredPictureBox.Image?.Dispose();
                 DitheredPictureBox.Image = afterImage;
                 DitheredPictureBox.Update();
             }));
@@ -74,8 +78,7 @@ namespace Interaction
 
             _tokenSource.Cancel();
             _tokenSource = new CancellationTokenSource();
-
-            DateTimeOffset startTime = DateTimeOffset.Now;
+            
             int paletteIndex = PalettesComboBox.SelectedIndex;
 
             Bitmap originalImage = new Bitmap(OriginalPictureBox.Image);
@@ -86,6 +89,7 @@ namespace Interaction
             ImageDither dither = new ImageDither(originalImage);
             dither.RepainProgressEvent += RepainProgres;
             dither.RepainCompletedEvent += OnRepainCompleted;
+            DateTimeOffset startTime = DateTimeOffset.Now;
             dither.RenderImageAsync(palette, power, dissipator, cancellation: _tokenSource.Token)
                 .ContinueWith(task =>
                     {
@@ -98,6 +102,7 @@ namespace Interaction
                             TimeSpanLabel.Text = $"{timeSpan.TotalSeconds} c.";
                             TimeSpanLabel.Update();
                         }));
+                        originalImage.Dispose();
                     });
         }
 
@@ -112,7 +117,7 @@ namespace Interaction
                 return;
 
             using var stream = SaveDitheredPictureDialog.OpenFile();
-            DitheredPictureBox.Image.Save(stream, ImageFormat.Jpeg);
+            DitheredPictureBox.Image.Save(stream, ImageFormat.Png);
         }
 
         public IErrorDissipator DefineDissipator()
@@ -133,11 +138,11 @@ namespace Interaction
         {
             string str = "";
             Random random = new Random();
-            for (int _ = 0; _ < 40; _++)
+            for (int _ = 0; _ < 6; _++)
             {
                 str += (char)random.Next(65, 91);
             }
-            return str;
+            return str.ToLower();
         }
     }
 }

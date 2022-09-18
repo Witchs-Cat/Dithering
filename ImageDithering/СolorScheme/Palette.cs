@@ -1,16 +1,23 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 
 namespace ImageDithering
 {
-    public sealed class Palette : BasePalette
+    public sealed class Palette
     {
-        public Palette(string name, params Color[] colors) : base(name, colors)
-        { }
+        public readonly string Name;
+        public readonly IEnumerable<Color> Colors;
+        
+        public Palette(string name, IEnumerable<Color> colors)
+        {
+            Name = name;
+            Colors = colors;
+        }
 
-        public override Color FindClosestColor(Color inputColor)
+        public void FindClosestColor(in Color inputColor, out Color resultColor)
         {            
-            Color resultColor = default;
+            resultColor = default;
             int minDist = int.MaxValue;
 
             foreach (Color paletteColor in Colors)
@@ -22,11 +29,9 @@ namespace ImageDithering
                     resultColor = paletteColor;
                 }
             }
-            return resultColor;
-
         }
 
-        private static int CalcColorDist(Color color1, Color color2)
+        private static int CalcColorDist(in Color color1, in Color color2)
         {
             int distR = color1.R - color2.R;
             int distG = color1.G - color2.G;

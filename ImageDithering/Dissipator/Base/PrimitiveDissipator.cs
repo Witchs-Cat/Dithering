@@ -3,7 +3,7 @@
     public sealed class PrimitiveDissipator : IErrorDissipator
     {
         private PixelError[] _currentLine;
-        public void DissipateError(int x, int y, PixelError pixelError)
+        public void DissipateError(int x, int y, in PixelError pixelError)
         {
             // 0
             _currentLine[x + 1].R += pixelError.R;
@@ -11,8 +11,8 @@
             _currentLine[x + 1].B += pixelError.B;
         }
 
-        public PixelError GetPixelError(int x, int y)
-            => _currentLine[x];
+        public void GetPixelError(int x, int y, out PixelError error)
+            => error = _currentLine[x];
 
         public void CreateEmptyMap(int width, int height)
         {

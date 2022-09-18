@@ -11,7 +11,7 @@ namespace ImageDithering.Dissipator
     {
         private PixelError[] _currentLine;
         private PixelError[] _secondLine;
-        public void DissipateError(int x, int y, PixelError pixelError)
+        public void DissipateError(int x, int y, in PixelError pixelError)
         {
             // 0
             _currentLine[x + 2].R += pixelError.R / 2;
@@ -27,8 +27,8 @@ namespace ImageDithering.Dissipator
             _secondLine[x + 1].B += pixelError.B / 4;
         }
 
-        public PixelError GetPixelError(int x, int y)
-        => _currentLine[x + 1];
+        public void GetPixelError(int x, int y, out PixelError error)
+            => error = _currentLine[x + 1];
 
         public void CreateEmptyMap(int width, int height)
         {

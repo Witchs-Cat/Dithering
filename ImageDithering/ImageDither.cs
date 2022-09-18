@@ -1,5 +1,7 @@
-﻿using System;
+﻿using FastBitmapLib;
+using System;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -16,6 +18,7 @@ namespace ImageDithering
         public ImageDither(Bitmap originalImage)
         {
             _originalImage = originalImage;
+ 
         }
 
         public ImageDither(Image originalImage) : this(new Bitmap(originalImage))
@@ -26,40 +29,42 @@ namespace ImageDithering
             int yMax = _originalImage.Height;
             int xMax = _originalImage.Width;
 
-            Bitmap ditheredBitmap = new Bitmap(xMax, yMax);
-            IErrorDissipator dissipator = (errorDissipator ?? new FloydSteinbergDissipator());
-            dissipator.CreateEmptyMap(xMax, yMax);
-
-            for (int y = 0; y < yMax; y++)
+            Bitmap ditheredBitmap = new(xMax, yMax);
+            using (FastBitmap fastOriginal = _originalImage.FastLock())
             {
-                for (int x = 0; x < xMax; x++)
+                using (FastBitmap fastDitheredBitmap = ditheredBitmap.FastLock())
                 {
-                    if (cancellation.IsCancellationRequested)
+                    ;
+                    IErrorDissipator dissipator = (errorDissipator ?? new FloydSteinbergDissipator());
+                    dissipator.CreateEmptyMap(xMax, yMax);
+
+                    for (int y = 0; y < yMax; y++)
                     {
-                        throw new OperationCanceledException($"The {nameof(RenderImage)} has been canceled");
+                        for (int x = 0; x < xMax; x++)
+                        {
+                            Color originalColor = fastOriginal.GetPixel(x, y);
+                            dissipator.GetPixelError(x, y, out PixelError error);
+                            Color sumColor = Color.FromArgb(
+                                255,
+                                ClipByte(originalColor.R + (int)(error.R * power)),
+                                ClipByte(originalColor.G + (int)(error.G * power)),
+                                ClipByte(originalColor.B + (int)(error.B * power)));
+
+                            pallete.FindClosestColor(sumColor, out Color newColor);
+                            PixelError newError = new(
+                               sumColor.R - newColor.R,
+                               sumColor.G - newColor.G,
+                               sumColor.B - newColor.B);
+
+                            dissipator.DissipateError(x, y, newError);
+                            fastDitheredBitmap.SetPixel(x, y, newColor);
+                        }
+                        dissipator.ShiftLines();
+                        RepainProgressEvent?.Invoke(Math.BigMul(xMax - 1, y), Math.BigMul(xMax, yMax));
                     }
-
-                    Color originalColor = _originalImage.GetPixel(x, y);
-                    PixelError error = dissipator.GetPixelError(x, y);
-                    Color sumColor = Color.FromArgb(
-                        255,
-                        ClipByte(originalColor.R + (int)(error.R * power)),
-                        ClipByte(originalColor.G + (int)(error.G * power)),
-                        ClipByte(originalColor.B + (int)(error.B * power)));
-
-                    Color newColor = pallete.FindClosestColor(sumColor);
-                    PixelError newError = new PixelError(
-                       sumColor.R - newColor.R,
-                       sumColor.G - newColor.G,
-                       sumColor.B - newColor.B);
-
-                    dissipator.DissipateError(x, y, newError);
-                    ditheredBitmap.SetPixel(x, y, newColor);
                 }
-                dissipator.ShiftLines();
-                Task.Run(() => RepainProgressEvent?.Invoke(Math.BigMul(xMax - 1, y), Math.BigMul(xMax, yMax)));
             }
-            Task.Run(() => RepainCompletedEvent?.Invoke(_originalImage, ditheredBitmap));
+            RepainCompletedEvent?.Invoke(_originalImage, ditheredBitmap);
             return ditheredBitmap;
         }
 
